@@ -1,0 +1,16 @@
+{
+  "name": "kontrolapogonazaproizvodnjucokolade",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/ProizvodnjaCokolade.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^9.17.1"
+  },
+  "type": "module"
+}

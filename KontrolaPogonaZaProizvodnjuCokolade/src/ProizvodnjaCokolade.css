@@ -1,0 +1,317 @@
+body{
+    background-color: #d2cd8e;
+}
+
+.kontrole{
+    position: absolute;
+    border: 2px red solid;
+    margin-top: 750px;
+    margin-left: 600px;
+}
+
+.traka1{
+    position: absolute;
+    border: red 5px solid;
+    background-color: #c7c7c7;
+}
+
+#traka11{
+    margin-top: 207px;
+    margin-left: 123px;
+    height: 95px;
+    width: 40px;
+}
+
+#traka12{
+    margin-top: 207px;
+    margin-left: 370px;
+    height: 155px;
+    width: 40px;
+}
+
+#traka13{
+    margin-top: 368px;
+    margin-left: 229px;
+    height: 40px;
+    width: 181px;
+}
+
+#traka14{
+    margin-top: 472px;
+    margin-left: 123px;
+    height: 60px;
+    width: 40px;
+}
+
+.traka2{
+    position: absolute;
+    border: red 5px solid;
+    background-color: #818181;
+}
+#traka21{
+    margin-top: 705px;
+    margin-left: 123px;
+    height: 20px;
+    width: 40px;
+}
+#traka22{
+    margin-top: 725px;
+    margin-left: 123px;
+    height: 40px;
+    width: 417px;
+}
+#traka23{
+    margin-top: 320px;
+    margin-left: 500px;
+    height: 400px;
+    width: 40px;
+}
+#traka24{
+    margin-top: 320px;
+    margin-left: 545px;
+    height: 40px;
+    width: 775px;
+}
+#traka25{
+    margin-top: 207px;
+    margin-left: 622px;
+    height: 107px;
+    width: 40px;
+}
+#traka26{
+    margin-top: 365px;
+    margin-left: 1280px;
+    height: 315px;
+    width: 40px;
+    border-top: #818181;
+}
+#traka27{
+    margin-top: 281px;
+    margin-left: 1280px;
+    height: 34px;
+    width: 40px;
+}
+
+.traka3{
+    position: absolute;
+    border: red 5px solid;
+    background-color: #adadad;
+}
+#traka31{
+    margin-top: 207px;
+    margin-left: 874px;
+    height: 15px;
+    width: 40px;
+}
+#traka32{
+    margin-top: 227px;
+    margin-left: 874px;
+    height: 40px;
+    width: 220px;
+}
+#traka33{
+    margin-top: 44px;
+    margin-left: 1054px;
+    height: 178px;
+    width: 40px;
+}
+#traka34{
+    margin-top: 44px;
+    margin-left: 1099px;
+    height: 40px;
+    width: 220px;
+}
+#traka35{
+    margin-top: 89px;
+    margin-left: 1279px;
+    height: 24px;
+    width: 40px;
+}
+
+#Mjesalica{
+    position: absolute;
+    top: 320px;
+    left: 78px;
+    border: #818181 5px solid;
+    width: 150px;
+    height: 150px;
+    border-radius: 50px;
+}
+#handId{
+
+}
+.hand{
+    position: relative;
+    background-color: tomato;
+    height: 55px;
+    width: 6px;
+    border-radius: 27px;
+    bottom: 7px;
+    left: 72px;
+    top: 20px;
+    animation: spin-a 10s forwards;
+    transform-origin: bottom;
+}
+@keyframes spin-a {
+    100%{
+        transform: rotate(2160deg);
+    }
+}
+
+#AparatZaMljevenje{
+    position: absolute;
+    top: 130px;
+    left: 1233px;
+    border: #818181 5px solid;
+    width: 150px;
+    height: 150px;
+    border-radius: 50px;
+}
+
+#Pakovanje{
+    position: absolute;
+    top: 693px;
+    left: 1208px;
+    border: red 5px solid;
+    width: 200px;
+    height: 55px;
+    border-radius: 50px;
+    text-align: center;
+    padding-top: 25px;
+    background-color: indianred;
+}
+
+.silosi{
+    position: absolute;
+    height: 250px;
+    width: 1000px;
+}
+
+.silosMed{
+    height: 140px;
+    width: 180px;
+    border: 6px solid #d2cd8e;
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    border-radius: 0 0 70px 70px;
+    background: url("/img/honey.png");
+    box-shadow: 0 0 0 6px #818181;
+    background-repeat: repeat-x;
+    background-position: 0px 140px;
+    animation: fill 7s linear 0.5s 1 normal forwards;
+}
+.silosZitarice{
+    height: 140px;
+    width: 180px;
+    border: 6px solid #d2cd8e;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    border-radius: 0 0 70px 70px;
+    background: url("/img/cereals.png");
+    box-shadow: 0 0 0 6px #818181;
+    background-repeat: repeat-x;
+    background-position: 0px 140px;
+    animation: fill 7s linear 0.5s 1 normal forwards;
+}
+.silosTopljenaCokolada{
+    height: 140px;
+    width: 180px;
+    border: 6px solid #d2cd8e;
+    position: absolute;
+    top: 20%;
+    left: 55%;
+    border-radius: 0 0 70px 70px;
+    background: url("/img/coffee.png");
+    box-shadow: 0 0 0 6px #818181;
+    background-repeat: repeat-x;
+    background-position: 0px 140px;
+    animation: fill 7s linear 0.5s 1 normal forwards;
+}
+.silosBademi{
+    height: 140px;
+    width: 180px;
+    border: 6px solid #d2cd8e;
+    position: absolute;
+    top: 20%;
+    left: 80%;
+    border-radius: 0 0 70px 70px;
+    background: url("/img/almonds.png");
+    box-shadow: 0 0 0 6px #818181;
+    background-repeat: repeat-x;
+    background-position: 0px 140px;
+    animation: fill 7s linear 0.5s 1 normal forwards;
+}
+.silosBaznaSmjesa{
+    height: 140px;
+    width: 180px;
+    border: 6px solid #d2cd8e;
+    position: absolute;
+    top: 70%;
+    left: 4%;
+    border-radius: 0 0 70px 70px;
+    background: url("/img/base.png");
+    box-shadow: 0 0 0 6px #818181;
+    background-repeat: repeat-x;
+    background-position: 0px 140px;
+    animation: fill 7s linear 0.5s 1 normal forwards;
+}
+
+@keyframes fill {
+    0%{
+        background-position: 0px 140px;
+    }
+    20%{
+        background-position: -450px 100px;
+    }
+    50%{
+        background-position: -900px 50px;
+    }
+    100%{
+        background-position: -1350px -40px;
+    }
+}
+
+.silosMedUse{
+    height: 140px;
+    width: 180px;
+    border: 6px solid #d2cd8e;
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    border-radius: 0 0 70px 70px;
+    background: url("/img/honey.png");
+    box-shadow: 0 0 0 6px #818181;
+    background-repeat: repeat-x;
+    background-position: -1350px -40px;
+    animation: fill-a 10s linear 0.5s 1 normal forwards;
+}
+.silosZitariceUse{
+    height: 140px;
+    width: 180px;
+    border: 6px solid #d2cd8e;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    border-radius: 0 0 70px 70px;
+    background: url("/img/cereals.png");
+    box-shadow: 0 0 0 6px #818181;
+    background-repeat: repeat-x;
+    background-position: -1350px -40px;
+    animation: fill-a 10s linear 0.5s 1 normal forwards;
+}
+@keyframes fill-a {
+    0%{
+        background-position: -1350px -40px;
+    }
+    20%{
+        background-position: -900px 50px;
+    }
+    50%{
+        background-position: -450px 100px;
+    }
+    100%{
+        background-position: 0px 140px;
+    }
+}
