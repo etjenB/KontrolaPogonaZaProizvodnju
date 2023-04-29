@@ -128,6 +128,9 @@
     let topCok = document.getElementById("topCok");
     let bazSmj = document.getElementById("bazSmj");
 
+    let traPok = false;
+    let mijTra = false;
+
     var isTrakaPokrenuta;
     var isMijesanjeTraka;
     var bademiKolicina;
@@ -141,7 +144,7 @@
     var refMijesanjeTraka = firebase.database().ref().child("MijesanjeTraka/TrakaPokrenuta");
     var refBademi = firebase.database().ref().child("Silosi/Bademi");
     //var refBaznaSmjesa = firebase.database().ref().child("Silosi/BaznaSmjesa");
-    var refBaznaSmjesa = firebase.database().ref().child("BaznaSmjesa");
+    var refBaznaSmjesa = firebase.database().ref().child("SilosBazna/BaznaSmjesa");
     var refMed = firebase.database().ref().child("Silosi/Med");
     var refTopljenaCokolada = firebase.database().ref().child("Silosi/TopljenaCokolada");
     var refUsitnjeniBademi = firebase.database().ref().child("Silosi/UsitnjeniBademi");
@@ -155,6 +158,13 @@
     });
     refBaznaSmjesa.on('value', (snapshot) => {
         bazSmj.value = snapshot.val();
+    });
+
+    refTrakaPokrenuta.on('value', (snapshot) => {
+        traPok.value = snapshot.val();
+    });
+    refMijesanjeTraka.on('value', (snapshot) => {
+        mijTra.value = snapshot.val();
     });
 
 
@@ -295,6 +305,36 @@
                 }
             });
             alert("Mijesanje je pokrenuto!");
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(function() {
+                        switch (i) {
+                            case 0: firebase.database().ref('SilosBazna').set({
+                                BaznaSmjesa: 20
+
+                            }); break;
+                            case 1: firebase.database().ref('SilosBazna').set({
+                                BaznaSmjesa: 40
+
+                            }); break;
+                            case 2: firebase.database().ref('SilosBazna').set({
+                                BaznaSmjesa: 60
+
+                            }); break;
+                            case 3: firebase.database().ref('SilosBazna').set({
+                                BaznaSmjesa: 80
+
+                            }); break;
+                            case 4: firebase.database().ref('SilosBazna').set({
+                                BaznaSmjesa: 100
+                            }); alert("Silos bazne smjese je napunjen.");
+                                document.getElementById("traka11").style.border = "red 5px solid";
+                                document.getElementById("traka12").style.border = "red 5px solid";
+                                document.getElementById("traka13").style.border = "red 5px solid";
+                                document.getElementById("traka14").style.border = "red 5px solid";
+                            break;
+                        }
+                    }, 2000*i );
+                }
             DoAnimationMijesanje();
             document.getElementById("traka11").style.border = "green 5px solid";
             document.getElementById("traka12").style.border = "green 5px solid";
