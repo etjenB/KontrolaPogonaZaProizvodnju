@@ -130,19 +130,21 @@ body{
 
 #Mjesalica{
     position: absolute;
-    top: 320px;
-    left: 78px;
+    top: 312px;
+    left: 69px;
     border: #818181 5px solid;
     width: 150px;
     height: 150px;
     border-radius: 50px;
+    background: url("/img/mjesalica.jpg");
+    background-size: cover;
 }
 #handId{
 
 }
 .hand{
     position: relative;
-    background-color: tomato;
+    background-color: #c4c2c2;
     height: 55px;
     width: 6px;
     border-radius: 27px;
@@ -248,8 +250,8 @@ body{
     width: 180px;
     border: 6px solid #d2cd8e;
     position: absolute;
-    top: 70%;
-    left: 4%;
+    top: 219%;
+    left: 5%;
     border-radius: 0 0 70px 70px;
     background: url("/img/base.png");
     box-shadow: 0 0 0 6px #818181;
@@ -334,8 +336,8 @@ body{
     width: 180px;
     border: 6px solid #d2cd8e;
     position: absolute;
-    top: 70%;
-    left: 4%;
+    top: 219%;
+    left: 5%;
     border-radius: 0 0 70px 70px;
     background: url("/img/base.png");
     box-shadow: 0 0 0 6px #818181;
