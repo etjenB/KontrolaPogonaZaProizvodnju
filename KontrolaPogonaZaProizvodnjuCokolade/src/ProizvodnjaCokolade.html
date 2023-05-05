@@ -102,7 +102,6 @@
     <button id="btnMljevenje" class="button-29" onclick="komandaMljevenjeTraka('MljevenjeTraka')">Pokreni mljevenje badema</button>
     <br/>
     <br/>
-    <!--TODO sredit da zauzima vise prostora inputi i labeli unutar div-1-->
     <div class="div-1">
         <label style="font-size: 18px; margin-left: 15px;">Med</label>
         <input disabled style="width: 80px; margin-right: 15px;" id="medKol">
@@ -214,6 +213,14 @@
         if (isTrakaPokrenuta==false && isMijesanjeTraka==false){
             if (bademiKolicina+medKolicina+topljenaCokoladaKolicina+zitariceKolicina < 400) {
                 DoAnimationSilosi();
+                let t1=document.getElementById("btnPokreniTraku");
+                let t2=document.getElementById("btnMijesanje");
+                let t3=document.getElementById("btnMljevenje");
+                let t4=document.getElementById("btnNapuniSilose");
+                t1.disabled=true;
+                t2.disabled=true;
+                t3.disabled=true;
+                t4.disabled=true;
                 for (let i = 0; i < 5; i++) {
                     setTimeout(function() {
                         switch (i) {
@@ -250,7 +257,12 @@
                                 Med: 100,
                                 TopljenaCokolada: 100,
                                 Zitarice: 100
-                            }); alert("Silosi su napunjeni."); break;
+                            }); alert("Silosi su napunjeni.");
+                                t1.disabled=false;
+                                t2.disabled=false;
+                                t3.disabled=false;
+                                t4.disabled=false;
+                            break;
                         }
                     }, 2000*i );
                 }
@@ -306,6 +318,14 @@
                 }
             });
             alert("Traka je pokrenuta!");
+            let t1=document.getElementById("btnPokreniTraku");
+            let t2=document.getElementById("btnMijesanje");
+            let t3=document.getElementById("btnMljevenje");
+            let t4=document.getElementById("btnNapuniSilose");
+            t1.disabled=true;
+            t2.disabled=true;
+            t3.disabled=true;
+            t4.disabled=true;
             DoAnimationPakovanje();
             for (let i = 0; i < 5; i++) {
                 setTimeout(function() {
@@ -396,6 +416,10 @@
                             firebase.database().ref('KomandaTraka').set({
                                 TrakaPokrenuta: false
                             });
+                            t1.disabled=false;
+                            t2.disabled=false;
+                            t3.disabled=false;
+                            t4.disabled=false;
                             break;
                     }
                 }, 6000*i );
@@ -453,6 +477,10 @@
                 }
             });
             alert("Mijesanje je pokrenuto!");
+            let t1=document.getElementById("btnPokreniTraku");
+            let t2=document.getElementById("btnNapuniSilose");
+            t1.disabled=true;
+            t2.disabled=true;
             DoAnimationMijesanje();
                 for (let i = 0; i < 5; i++) {
                     setTimeout(function() {
@@ -483,6 +511,8 @@
                                 firebase.database().ref('MijesanjeTraka').set({
                                     TrakaPokrenuta: false
                                 });
+                                t1.disabled=false;
+                                t2.disabled=false;
                             break;
                         }
                     }, 2000*i );
@@ -514,6 +544,10 @@
                 }
             });
             alert("Mljevenje je pokrenuto!");
+            let t1=document.getElementById("btnPokreniTraku");
+            let t2=document.getElementById("btnNapuniSilose");
+            t1.disabled=true;
+            t2.disabled=true;
             DoAnimationMljevenje();
             for (let i = 0; i < 5; i++) {
                 setTimeout(function() {
@@ -545,6 +579,8 @@
                             firebase.database().ref('MljevenjeTraka').set({
                                 TrakaPokrenuta: false
                             });
+                            t1.disabled=false;
+                            t2.disabled=false;
                             break;
                     }
                 }, 2000*i );
