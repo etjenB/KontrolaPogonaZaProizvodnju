@@ -89,29 +89,42 @@
 
     </div>
 </div>
-<div id="AparatZaMljevenje">
+<div id="AparatZaMljevenjeId" class="AparatZaMljevenje">
 
 </div>
 <div id="Pakovanje">
     <a style="font-family: 'Dubai Medium'">PAKOVANJE</a>
 </div>
 <div class="kontrole">
-    <button onclick="komandaTraka('KomandaTraka');">Pokreni/zaustavi traku</button>
-    <button onclick="napuniSilose('Silosi')">Napuni silose</button>
-    <button onclick="komandaMijesanjeTraka('MijesanjeTraka')">Pokreni mijesanje meda i zitarica</button>
+    <button id="btnPokreniTraku" class="button-29" onclick="komandaTraka('KomandaTraka');">Pokreni traku</button>
+    <button id="btnNapuniSilose" class="button-29" onclick="napuniSilose('Silosi')">Napuni silose</button>
+    <button id="btnMijesanje" class="button-29" onclick="komandaMijesanjeTraka('MijesanjeTraka')">Pokreni mijesanje meda i zitarica</button>
+    <button id="btnMljevenje" class="button-29" onclick="komandaMljevenjeTraka('MljevenjeTraka')">Pokreni mljevenje badema</button>
     <br/>
     <br/>
-    <label>Med</label>
-    <input disabled style="width: 50px" id="medKol">
-    <label>Topljena čokolada</label>
-    <input disabled style="width: 50px" id="topCok">
-    <label>Žitarice</label>
-    <input disabled style="width: 50px" id="zitKol">
-    <label>Bademi</label>
-    <input disabled style="width: 50px" id="badKol">
-    <br/>
-    <label>Bazna smjesa</label>
-    <input disabled style="width: 50px" id="bazSmj">
+    <!--TODO sredit da zauzima vise prostora inputi i labeli unutar div-1-->
+    <div class="div-1">
+        <label style="font-size: 18px; margin-left: 15px;">Med</label>
+        <input disabled style="width: 80px; margin-right: 15px;" id="medKol">
+
+        <label style="font-size: 18px;">Topljena čokolada</label>
+        <input disabled style="width: 80px; margin-right: 15px;" id="topCok">
+
+        <label style="font-size: 18px;">Žitarice</label>
+        <input disabled style="width: 80px" id="zitKol">
+
+        <br/>
+        <br/>
+
+        <label style="font-size: 18px; margin-left: 15px;">Bademi</label>
+        <input disabled style="width: 80px; margin-right: 8px;" id="badKol">
+
+        <label style="font-size: 18px;">Bazna smjesa</label>
+        <input disabled style="width: 80px; margin-right: 8px;" id="bazSmj">
+
+        <label style="font-size: 18px;">Mljeveni bademi</label>
+        <input disabled style="width: 80px" id="mljBad">
+    </div>
 </div>
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase.js"></script>
@@ -141,9 +154,11 @@
     let badKol = document.getElementById("badKol");
     let zitKol = document.getElementById("zitKol");
     let bazSmj = document.getElementById("bazSmj");
+    let mljBad = document.getElementById("mljBad");
 
     let traPok = false;
     let mijTra = false;
+    let mljTra = false;
 
     var isTrakaPokrenuta;
     var isMijesanjeTraka;
@@ -151,17 +166,18 @@
     var baznaSmjesaKolicina;
     var medKolicina;
     var topljenaCokoladaKolicina;
-    var usitnjeniBademiKolicina;
+    var mljeveniBademiKolicina;
     var zitariceKolicina;
 
     var refTrakaPokrenuta = firebase.database().ref().child("KomandaTraka/TrakaPokrenuta");
     var refMijesanjeTraka = firebase.database().ref().child("MijesanjeTraka/TrakaPokrenuta");
+    var refMljevenjeTraka = firebase.database().ref().child("MljevenjeTraka/TrakaPokrenuta");
     var refBademi = firebase.database().ref().child("Silosi/Bademi");
     //var refBaznaSmjesa = firebase.database().ref().child("Silosi/BaznaSmjesa");
     var refBaznaSmjesa = firebase.database().ref().child("SilosBazna/BaznaSmjesa");
     var refMed = firebase.database().ref().child("Silosi/Med");
     var refTopljenaCokolada = firebase.database().ref().child("Silosi/TopljenaCokolada");
-    var refUsitnjeniBademi = firebase.database().ref().child("Silosi/UsitnjeniBademi");
+    var refMljeveniBademi = firebase.database().ref().child("SilosMljeveni/MljeveniBademi");
     var refZitarice = firebase.database().ref().child("Silosi/Zitarice");
 
     refMed.on('value', (snapshot) => {
@@ -179,12 +195,18 @@
     refBaznaSmjesa.on('value', (snapshot) => {
         bazSmj.value = snapshot.val();
     });
+    refMljeveniBademi.on('value', (snapshot) => {
+        mljBad.value = snapshot.val();
+    });
 
     refTrakaPokrenuta.on('value', (snapshot) => {
         traPok.value = snapshot.val();
     });
     refMijesanjeTraka.on('value', (snapshot) => {
         mijTra.value = snapshot.val();
+    });
+    refMljevenjeTraka.on('value', (snapshot) => {
+        mljTra.value = snapshot.val();
     });
 
 
@@ -272,7 +294,7 @@
             document.getElementById("traka27").style.border = "red 5px solid";
             document.getElementById("Pakovanje").style.border = "red 5px solid";
             document.getElementById("Pakovanje").style.backgroundColor = "indianred";
-        }else if(topCok.value>0 && bazSmj.value>0 && isTrakaPokrenuta==false){
+        }else if(topCok.value>0 && bazSmj.value>0 && mljBad.value>0 && isTrakaPokrenuta==false){
             firebase.database().ref(lokacija).set({
                 TrakaPokrenuta: true
 
@@ -284,6 +306,100 @@
                 }
             });
             alert("Traka je pokrenuta!");
+            DoAnimationPakovanje();
+            for (let i = 0; i < 5; i++) {
+                setTimeout(function() {
+                    switch (i) {
+                        case 0: firebase.database().ref('SilosBazna').set({
+                            BaznaSmjesa: 80
+
+                        });
+                            firebase.database().ref('SilosMljeveni').set({
+                                MljeveniBademi: 80
+
+                            });
+                            firebase.database().ref('Silosi').set({
+                                Bademi: bademiKolicina,
+                                Med: medKolicina,
+                                TopljenaCokolada: 80,
+                                Zitarice: zitariceKolicina
+                            });
+                        break;
+                        case 1: firebase.database().ref('SilosBazna').set({
+                            BaznaSmjesa: 60
+
+                        });
+                            firebase.database().ref('SilosMljeveni').set({
+                                MljeveniBademi: 60
+
+                            });
+                            firebase.database().ref('Silosi').set({
+                                Bademi: bademiKolicina,
+                                Med: medKolicina,
+                                TopljenaCokolada: 60,
+                                Zitarice: zitariceKolicina
+                            });
+                        break;
+                        case 2: firebase.database().ref('SilosBazna').set({
+                            BaznaSmjesa: 40
+
+                        });
+                            firebase.database().ref('SilosMljeveni').set({
+                                MljeveniBademi: 40
+
+                            });
+                            firebase.database().ref('Silosi').set({
+                                Bademi: bademiKolicina,
+                                Med: medKolicina,
+                                TopljenaCokolada: 40,
+                                Zitarice: zitariceKolicina
+                            });
+                        break;
+                        case 3: firebase.database().ref('SilosBazna').set({
+                            BaznaSmjesa: 20
+
+                        });
+                            firebase.database().ref('SilosMljeveni').set({
+                                MljeveniBademi: 20
+
+                            });
+                            firebase.database().ref('Silosi').set({
+                                Bademi: bademiKolicina,
+                                Med: medKolicina,
+                                TopljenaCokolada: 20,
+                                Zitarice: zitariceKolicina
+                            });
+                        break;
+                        case 4: firebase.database().ref('SilosBazna').set({
+                            BaznaSmjesa: 0
+                        });
+                            firebase.database().ref('SilosMljeveni').set({
+                                MljeveniBademi: 0
+
+                            });
+                            firebase.database().ref('Silosi').set({
+                                Bademi: bademiKolicina,
+                                Med: medKolicina,
+                                TopljenaCokolada: 0,
+                                Zitarice: zitariceKolicina
+                            });
+                        alert("Silosi potrebni za pakovanje su ispražnjeni.");
+                            document.getElementById("traka21").style.border = "red 5px solid";
+                            document.getElementById("traka22").style.border = "red 5px solid";
+                            document.getElementById("traka23").style.border = "red 5px solid";
+                            document.getElementById("traka24").style.border = "red 5px solid";
+                            document.getElementById("traka25").style.border = "red 5px solid";
+                            document.getElementById("traka26").style.border = "red 5px solid";
+                            document.getElementById("traka27").style.border = "red 5px solid";
+                            document.getElementById("Pakovanje").style.border = "red 5px solid";
+                            document.getElementById("Pakovanje").style.backgroundColor = "indianred";
+                            firebase.database().ref('KomandaTraka').set({
+                                TrakaPokrenuta: false
+                            });
+                            break;
+                    }
+                }, 6000*i );
+            }
             document.getElementById("traka21").style.border = "green 5px solid";
             document.getElementById("traka22").style.border = "green 5px solid";
             document.getElementById("traka23").style.border = "green 5px solid";
@@ -293,6 +409,34 @@
             document.getElementById("traka27").style.border = "green 5px solid";
             document.getElementById("Pakovanje").style.border = "green 5px solid";
             document.getElementById("Pakovanje").style.backgroundColor = "lightgreen";
+        }
+    }
+
+    function DoAnimationPakovanje(){
+        var targetElement1 = document.getElementById("silosBaznaSmjesaId");
+        var targetElement2 = document.getElementById("AparatZaMljevenjeId");
+        var targetElement3 = document.getElementById("silosTopljenaCokoladaId");
+        if (targetElement1.className=="silosBaznaSmjesaPakovanje"){
+            targetElement1.className = "silosBaznaSmjesa";
+            targetElement2.className = "AparatZaMljevenje";
+            targetElement3.className = "silosTopljenaCokolada";
+        }else {
+            firebase.database().ref('SilosBazna').set({
+                BaznaSmjesa: 0
+            });
+            firebase.database().ref('SilosMljeveni').set({
+                MljeveniBademi: 0
+
+            });
+            firebase.database().ref('Silosi').set({
+                Bademi: bademiKolicina,
+                Med: medKolicina,
+                TopljenaCokolada: 0,
+                Zitarice: zitariceKolicina
+            });
+            targetElement1.className = "silosBaznaSmjesaPakovanje";
+            targetElement2.className = "AparatZaMljevenjePakovanje";
+            targetElement3.className = "silosTopljenaCokoladaPakovanje";
         }
     }
 
@@ -309,6 +453,7 @@
                 }
             });
             alert("Mijesanje je pokrenuto!");
+            DoAnimationMijesanje();
                 for (let i = 0; i < 5; i++) {
                     setTimeout(function() {
                         switch (i) {
@@ -342,7 +487,7 @@
                         }
                     }, 2000*i );
                 }
-            DoAnimationMijesanje();
+            //DoAnimationMijesanje();
             document.getElementById("traka11").style.border = "green 5px solid";
             document.getElementById("traka12").style.border = "green 5px solid";
             document.getElementById("traka13").style.border = "green 5px solid";
@@ -353,6 +498,70 @@
                 document.getElementById("traka12").style.border = "red 5px solid";
                 document.getElementById("traka13").style.border = "red 5px solid";
                 document.getElementById("traka14").style.border = "red 5px solid";
+        }
+    }
+
+    komandaMljevenjeTraka=(lokacija)=>{
+        if (mljTra==false && mljBad.value=='0' && badKol.value>0){
+            firebase.database().ref(lokacija).set({
+                TrakaPokrenuta: true
+
+            }, (error) => {
+                if (error) {
+                    console.log("Greska u snimanju podataka!");
+                } else {
+                    console.log("Uspjesno snimljeni podaci!");
+                }
+            });
+            alert("Mljevenje je pokrenuto!");
+            DoAnimationMljevenje();
+            for (let i = 0; i < 5; i++) {
+                setTimeout(function() {
+                    switch (i) {
+                        case 0: firebase.database().ref('SilosMljeveni').set({
+                            MljeveniBademi: 20
+
+                        }); break;
+                        case 1: firebase.database().ref('SilosMljeveni').set({
+                            MljeveniBademi: 40
+
+                        }); break;
+                        case 2: firebase.database().ref('SilosMljeveni').set({
+                            MljeveniBademi: 60
+
+                        }); break;
+                        case 3: firebase.database().ref('SilosMljeveni').set({
+                            MljeveniBademi: 80
+
+                        }); break;
+                        case 4: firebase.database().ref('SilosMljeveni').set({
+                            MljeveniBademi: 100
+                        }); alert("Silos mljevenih badema je napunjen.");
+                            document.getElementById("traka31").style.border = "red 5px solid";
+                            document.getElementById("traka32").style.border = "red 5px solid";
+                            document.getElementById("traka33").style.border = "red 5px solid";
+                            document.getElementById("traka34").style.border = "red 5px solid";
+                            document.getElementById("traka35").style.border = "red 5px solid";
+                            firebase.database().ref('MljevenjeTraka').set({
+                                TrakaPokrenuta: false
+                            });
+                            break;
+                    }
+                }, 2000*i );
+            }
+            //DoAnimationMljevenje();
+            document.getElementById("traka31").style.border = "green 5px solid";
+            document.getElementById("traka32").style.border = "green 5px solid";
+            document.getElementById("traka33").style.border = "green 5px solid";
+            document.getElementById("traka34").style.border = "green 5px solid";
+            document.getElementById("traka35").style.border = "green 5px solid";
+        }else{
+            alert("Nisu potrošeni svi mljeveni bademi.");
+            document.getElementById("traka31").style.border = "red 5px solid";
+            document.getElementById("traka32").style.border = "red 5px solid";
+            document.getElementById("traka33").style.border = "red 5px solid";
+            document.getElementById("traka34").style.border = "red 5px solid";
+            document.getElementById("traka35").style.border = "red 5px solid";
         }
     }
 
@@ -375,6 +584,23 @@
                 Zitarice: 0
 
             });
+        }
+    }
+
+    function DoAnimationMljevenje(){
+        var targetElement1 = document.getElementById("silosBademiId");
+        var targetElement2 = document.getElementById("AparatZaMljevenjeId");
+        if (targetElement2.className == "AparatZaMljevenjeEmpty" || targetElement2.className == "AparatZaMljevenjePakovanje"){
+            targetElement2.className = "AparatZaMljevenje";
+            targetElement1.className = "silosBademiUse";
+            firebase.database().ref("Silosi").set({
+                Bademi: 0,
+                Med: medKolicina,
+                TopljenaCokolada: topljenaCokoladaKolicina,
+                Zitarice: zitariceKolicina
+            });
+        }else {
+            targetElement2.className = "AparatZaMljevenjeEmpty";
         }
     }
 
@@ -442,7 +668,7 @@
                 targetElement1.className = "silosBaznaSmjesa";
             }else if(baznaSmjesaKolicina=='0'){
                 var targetElement1 = document.getElementById("silosBaznaSmjesaId");
-                targetElement1.className = "silosBaznaSmjesaUse";
+                targetElement1.className = "silosBaznaSmjesaEmpty";
             }
         });
         refMed.on('value', (snapshot) => {
@@ -462,11 +688,18 @@
                 targetElement3.className = "silosTopljenaCokolada";
             }else if(topljenaCokoladaKolicina=='0'){
                 var targetElement3 = document.getElementById("silosTopljenaCokoladaId");
-                targetElement3.className = "silosTopljenaCokoladaUse";
+                targetElement3.className = "silosTopljenaCokoladaEmpty";
             }
         });
-        refUsitnjeniBademi.on('value', (snapshot) => {
-            usitnjeniBademiKolicina = snapshot.val();
+        refMljeveniBademi.on('value', (snapshot) => {
+            mljeveniBademiKolicina = snapshot.val();
+            if (mljeveniBademiKolicina=='100'){
+                var targetElement35 = document.getElementById("AparatZaMljevenjeId");
+                targetElement35.className = "AparatZaMljevenje";
+            }else if(mljeveniBademiKolicina=='0'){
+                var targetElement35 = document.getElementById("AparatZaMljevenjeId");
+                targetElement35.className = "AparatZaMljevenjeEmpty";
+            }
         });
         refZitarice.on('value', (snapshot) => {
             zitariceKolicina = snapshot.val();
